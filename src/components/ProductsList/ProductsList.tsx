@@ -9,9 +9,10 @@ interface ProductsListProps {
     search: string,
     isLoading: boolean,
     productsCategory: Category,
+    onProductClick(product: Product): void;
 }
 
-const ProductsList = memo(({products, search, isLoading, productsCategory}: ProductsListProps) => {
+const ProductsList = memo(({products, search, isLoading, productsCategory, onProductClick}: ProductsListProps) => {
     return (
         <>
             {isLoading ?
@@ -20,7 +21,7 @@ const ProductsList = memo(({products, search, isLoading, productsCategory}: Prod
                 </Flex>
                 :
                 <Row gutter={16} style={{ width: '100%' }}>
-                    {products?.
+                    {products.
                     filter((product: Product) => {
                         return product.title.toLowerCase().includes(search.toLowerCase())
                     }).
@@ -30,7 +31,7 @@ const ProductsList = memo(({products, search, isLoading, productsCategory}: Prod
                     }).
                     map((product: Product) => (
                         <Col xs={24} sm={12} md={8} lg={6} xl={4} key={product.id} style={{marginBottom: '1rem'}}>
-                            <ProductCard product={product} />
+                            <ProductCard product={product} onClick={onProductClick} />
                         </Col>
                     ))}
                 </Row>

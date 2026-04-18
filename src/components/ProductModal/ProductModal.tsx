@@ -1,4 +1,4 @@
-import {Modal, Button, Flex, Divider, Typography, Image} from 'antd';
+import {Modal, Button, Flex, Divider, Typography, Image, notification} from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import type {Product} from "../../types/types.ts";
 
@@ -18,7 +18,19 @@ const ProductModal = ({ product, isOpenModal, onCloseModal }: ProductModalProps)
             open={isOpenModal}
             onCancel={onCloseModal}
             footer={[
-                <Button type="primary" danger>
+                <Button
+                    key="buy"
+                    type="primary"
+                    onClick={() => {
+                            notification.success({
+                                title: 'Успешно!',
+                                description: 'Товар добавлен в корзину',
+                            });
+                            onCloseModal();
+                        }
+                    }
+                    danger
+                >
                     Купить за {formattedPrice} ₽
                 </Button>,
             ]}
